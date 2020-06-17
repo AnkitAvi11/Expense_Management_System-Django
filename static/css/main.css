@@ -1,4 +1,9 @@
 *{
     box-sizing: border-box;
 }
- 
+div.my-form { 
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 6px;
+}

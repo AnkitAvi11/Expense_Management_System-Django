@@ -67,8 +67,11 @@ WSGI_APPLICATION = 'expense.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'expense',
+        'USER' : 'postgres',
+        'PASSWORD' : 'Ankit@383',
+        'HOST' : 'localhost'
     }
 }
 
@@ -118,3 +121,10 @@ STATICFILES_DIRS = [
 #   media file settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#   message settings
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR : "danger",
+    messages.SUCCESS : 'success'
+}
