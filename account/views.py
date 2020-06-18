@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 #   account app files
 from .models import UserProfile
@@ -72,7 +73,6 @@ def loginUser(request) :
         else :      #   authentication failed
             messages.error(request, 'Incorrect username or password')
             return redirect('/account/login/?next='+redirected_url)
-            
     else : 
         return render(request, 'account/login.html', {"next":redirected_url})
 
