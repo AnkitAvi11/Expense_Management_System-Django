@@ -10,6 +10,8 @@
 </span></p>
 <p>{{user.email}}</p>
 <div>
+    {%if not user.is_staff%}
     <p><a href="{%url 'editprofile'%} " class="btn btn-outline-primary" style="width: 100%;">Edit Profile</a></p>
+    {%endif%}
 </div>
 <p style="font-size: 14px;color:grey;text-align: justify;">{{user.userprofile.user_bio}}</p>

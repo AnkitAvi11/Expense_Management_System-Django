@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from account.validators import isEmail, isUserName
+from .decorators import is_admin
 
 #   home
 @login_required(login_url='/account/login/')
+@is_admin
 def get_profile(request) :
     user = User.objects.get(id=request.user.id)
     context = {
@@ -16,9 +18,10 @@ def get_profile(request) :
 
 
 @login_required(login_url='/account/login/')
+@is_admin
 def edit_user_profile(request) : 
     if request.method == 'POST' : 
-        userid = request.POST.get('user_id')
+        userid = request.user.id
         
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
