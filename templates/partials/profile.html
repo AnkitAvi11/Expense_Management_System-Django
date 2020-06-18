@@ -1,0 +1,15 @@
+<div class="profile-pic" style="height:240px;width:100%;background:url('{{user.userprofile.profile_pic.url}}');background-size:cover;background-position:center;border-radius:10px"></div>
+<br/>
+<h3><b>{{user.first_name}} {{user.last_name}}</b></h3>
+<p><span class="badge badge-secondary">
+    {% if user.is_staff%}
+        staff
+    {%else%}
+        {{user.username}}    
+    {%endif%}
+</span></p>
+<p>{{user.email}}</p>
+<div>
+    <p><a href="{%url 'editprofile'%} " class="btn btn-outline-primary" style="width: 100%;">Edit Profile</a></p>
+</div>
+<p style="font-size: 14px;color:grey;text-align: justify;">{{user.userprofile.user_bio}}</p>

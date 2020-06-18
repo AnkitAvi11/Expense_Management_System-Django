@@ -7,7 +7,7 @@ class UserProfile(models.Model) :
     user_name = models.CharField(max_length=200)
     user_bio = models.TextField(blank=True, null=True)
     profile_pic = models.ImageField(upload_to = 'images/%Y/%m', default='default.png', blank=True, null=True)
-
+    
     def __str__(self) : 
         return self.user_name
 

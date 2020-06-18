@@ -40,7 +40,7 @@ def registerUser(request) :
                 user_profile = UserProfile(user = user,user_name=username, profile_pic = profile)
                 user_profile.save()
                 messages.success(request, 'User created succesfully')
-                return redirect('/account/register/')
+                return redirect('/account/login/')
 
         else : 
             messages.error(request, 'Username or Email not valid')
@@ -68,6 +68,9 @@ def loginUser(request) :
         #   authenticating user
         user = authenticate(username=username, password=password)
         if user is not None :   
+            if user.is_staff or user.is_superuser : 
+                messages.error(request, 'Login for staffs not allowed.')
+                return redirect('/account/login/')
             login(request, user)
             return redirect(redirected_url)
         else :      #   authentication failed
@@ -81,6 +84,6 @@ def loginUser(request) :
 def logoutUser(request) : 
     if request.method == 'POST' : 
         logout(request)
-        return redirect('/')
+        return redirect('/account/login/')
     else : 
         raise Http404()
