@@ -128,3 +128,6 @@ MESSAGE_TAGS = {
     messages.ERROR : "danger",
     messages.SUCCESS : 'success'
 }
+
+#   email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
