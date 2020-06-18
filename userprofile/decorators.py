@@ -13,3 +13,5 @@ def is_admin(view_function) :
         return view_function(request, *args, **kwargs)
 
     return wrapper_function
+
+    

@@ -15,7 +15,7 @@
             <div class="col-sm-8">
                 <h3>Edit profile</h3>
                 <!-- #region form for editing profile-->
-                <form action="{%url 'editprofile'%}" method="post" enctype="multipart/form-data">
+                <form action="{%url 'editprofile'%}" method="post" enctype="multipart/form-data" id="my-change-form">
                     {%csrf_token%}
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <!-- first name and last name -->

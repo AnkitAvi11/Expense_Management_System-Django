@@ -6,7 +6,7 @@ from django.contrib import messages
 from account.validators import isEmail, isUserName
 from .decorators import is_admin
 
-#   home
+#   user dashboard
 @login_required(login_url='/account/login/')
 @is_admin
 def get_profile(request) :
@@ -16,7 +16,7 @@ def get_profile(request) :
     }
     return render(request, 'account/dashboard.html', context)
 
-
+#   edit user profile method
 @login_required(login_url='/account/login/')
 @is_admin
 def edit_user_profile(request) : 
