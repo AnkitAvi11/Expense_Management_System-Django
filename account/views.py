@@ -91,7 +91,7 @@ def logoutUser(request) :
 
 
 #   change function
-@login_required
+@login_required(login_url='/account/login/')
 @is_admin
 def changepassword(request) : 
     if request.method == 'POST' : 
@@ -118,7 +118,7 @@ def changepassword(request) :
 
 
 #   method to change the profile picture for the user
-@login_required
+@login_required(login_url='/account/login/')
 @is_admin
 def change_profile_pic(request) : 
     if request.method == 'POST' : 
@@ -128,3 +128,20 @@ def change_profile_pic(request) :
         user.userprofile.save()
         messages.success(request, "Profile pic has been uploaded")
         return redirect("/profile/user-setting/")
+
+
+@login_required(login_url='/account/login/')
+@is_admin
+def deleteuseraccount(request) : 
+    if request.method == 'POST' : 
+        username = request.user.username
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None :
+            user.userprofile.profile_pic.delete() 
+            user.delete()
+            messages.success(request, 'User account has been deleted successfully')
+            return redirect('/account/login/')
+        else : 
+            messages.error(request, "Password entered is wrong")
+            return redirect('/profile/user-setting/')

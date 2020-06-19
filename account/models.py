@@ -20,5 +20,10 @@ class UserProfile(models.Model) :
         except : 
             pass
         super().save(*args, **kwargs)
+
+    #   overriding delete function
+    def delete(self, *args, **kwargs) : 
+        self.profile_pic.delete()
+        super().delete(*args, **kwargs)
     
 

@@ -50,7 +50,7 @@ def edit_user_profile(request) :
         return render(request, 'account/editprofile.html')
 
 
-@login_required
+@login_required(login_url='/account/login/')
 @is_admin
 def user_setting(request) : 
     return render(request, 'account/setting.html')

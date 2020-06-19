@@ -22,15 +22,15 @@
                             {%include 'partials/error.html'%}
                             <div class="form-group">
                                 <label for="cpassword">Current Password </label>
-                                <input type="password" name="cpassword" id="cpassword" class="form-control" required="required">
+                                <input type="password" name="cpassword" id="cpassword" class="form-control" required="required" placeholder="Old Password here">
                             </div>
                             <div class="form-group">
                                 <label for="password1">New Password</label>
-                                <input type="password" name="password1" id="password1" class="form-control" required="required">
+                                <input type="password" name="password1" id="password1" class="form-control" required="required" placeholder="New Password">
                             </div>
                             <div class="form-group">
                                 <label for="password2">Confirm Password</label>
-                                <input type="password" name="password2" id="password2" class="form-control" required="required">
+                                <input type="password" name="password2" id="password2" class="form-control" required="required" placeholder="Confirm your password">
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="CHANGE PASSWORD" class="btn btn-outline-primary">
@@ -45,7 +45,7 @@
                             {%csrf_token%}
                             <div class="form-group">
                                 <label for="">Current Profile Pic : <a href="{{user.userprofile.profile_pic.url}}">{{user.userprofile.profile_pic.url}}</a></label>
-                                <label for="profile">Choose a pic :  </label><input type="file" name="profile" id="profile" required="required">
+                                <label for="profile">Choose a pic :&nbsp;  </label><input type="file" name="profile" id="profile" required="required">
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="CONFIRM CHANGE PIC" class="btn btn-outline-info">
@@ -53,7 +53,18 @@
                         </form>
                         <!-- Delete the account setting -->
                         <h3>Delete account</h3>
-                        <p>Feature will be available soon ... </p>
+                        <div class="form-group">
+                            <form action="{%url 'delete-user'%}" method="post" id="delete-form">
+                                {%csrf_token%}
+                                <div class="form-group">
+                                    <label for="password">We need your password to confirm </label>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="DELETE ACCOUNT" class="btn btn-outline-danger" style="width: 100%;" id="delete-user">
+                                </div>
+                            </form>
+                        </div>
                     </div>
     
                 </div>

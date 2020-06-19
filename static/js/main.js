@@ -1,13 +1,13 @@
-"use strict"
+// "use strict"
 
-const getbyid = (id) => {
-    return document.getElementById(id).value
-};
+// const getbyid = (id) => {
+//     return document.getElementById(id).value
+// };
 
-const fname = getbyid('fname'),lname = getbyid('lname'),username = getbyid('username'),email = getbyid('email');
+// const fname = getbyid('fname'),lname = getbyid('lname'),username = getbyid('username'),email = getbyid('email');
 
-const button = document.getElementById('change')
-console.log(button)
+// const button = document.getElementById('change')
+// console.log(button)
 
 // button.addEventListener('click', (e) => {
 //     e.preventDefault();
@@ -21,8 +21,8 @@ console.log(button)
 //     }
 
 // }, false);
-let alert = document.querySelector('div.alert')
+// let alert = document.querySelector('div.alert')
 
-setTimeout(() => {
-    alert.style.display = "None";
-}, 2000)
+// setTimeout(() => {
+//     alert.style.display = "None";
+// }, 2000)
