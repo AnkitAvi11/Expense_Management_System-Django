@@ -27,6 +27,7 @@ def edit_user_profile(request) :
         lname = request.POST.get('lname')
         username = request.POST.get('username')
         email = request.POST.get('email')
+        bio = request.POST.get('bio')
 
         if isEmail(email) and isUserName(username) : 
             user = User.objects.get(id=userid)
@@ -35,6 +36,8 @@ def edit_user_profile(request) :
             user.last_name = lname
             user.email = email
             user.username = username
+            user.userprofile.user_bio = bio
+            user.userprofile.save()
             user.save()
 
             messages.success(request, 'Changes made successfully!')
@@ -45,3 +48,9 @@ def edit_user_profile(request) :
 
     else : 
         return render(request, 'account/editprofile.html')
+
+
+@login_required
+@is_admin
+def user_setting(request) : 
+    return render(request, 'account/setting.html')

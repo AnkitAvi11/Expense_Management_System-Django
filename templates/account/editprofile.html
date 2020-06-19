@@ -10,9 +10,7 @@
                 {%include 'partials/profile.html'%}
             </div>
 
-            <div class="col-sm-1"></div>
-
-            <div class="col-sm-8">
+            <div class="col-sm-9" style="margin-bottom: 20px;">
                 <h3>Edit profile</h3>
                 <!-- #region form for editing profile-->
                 <form action="{%url 'editprofile'%}" method="post" enctype="multipart/form-data" id="my-change-form">
@@ -39,7 +37,14 @@
                         <label for="email">Email Address</label>
                         <input type="email" name="email" id="email" value="{{user.email}}" class="form-control">
                     </div>
-                    
+                    <!--
+                        Bio
+                    -->
+                    <div class="form-group">
+                        <label for="bio">Bio : </label>
+                        <textarea name="bio" id="bio" cols="30" rows="10" class="form-control">{{user.userprofile.user_bio}}</textarea>
+                        
+                    </div>
                     <div>
                         <input type="submit" value="CHANGE CREDENTIALS" class="form-control btn btn-outline-primary" id='change'>
                     </div>

@@ -1,0 +1,71 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}{{user.username}}{%endblock%}
+{%block content%}
+
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+
+            <div class="col-sm-3">
+                {%include 'partials/profile.html'%}
+            </div>
+
+            <div class="col-sm-9" style="margin-bottom: 20px;">
+                <!-- Change password setting -->
+                <div class="row">
+                    <div class="col-6">
+                        <h3>Profile Setting</h3>
+                        <!-- #region form for editing profile-->
+                        
+                        <form action="{%url 'changepassword'%} " method="post" id="changepasswordform">
+                            {%csrf_token%}
+                            {%include 'partials/error.html'%}
+                            <div class="form-group">
+                                <label for="cpassword">Current Password </label>
+                                <input type="password" name="cpassword" id="cpassword" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="password1">New Password</label>
+                                <input type="password" name="password1" id="password1" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="password2">Confirm Password</label>
+                                <input type="password" name="password2" id="password2" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="CHANGE PASSWORD" class="btn btn-outline-primary">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--    profile pic change (using AJAX or fetch) -->
+                    <div class="col-sm-6">
+                        <h3>Set a new profile pic</h3>
+                        <form action="{%url 'change-profile' %}" method="post" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            <div class="form-group">
+                                <label for="">Current Profile Pic : <a href="{{user.userprofile.profile_pic.url}}">{{user.userprofile.profile_pic.url}}</a></label>
+                                <label for="profile">Choose a pic :  </label><input type="file" name="profile" id="profile" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="CONFIRM CHANGE PIC" class="btn btn-outline-info">
+                            </div>
+                        </form>
+                        <!-- Delete the account setting -->
+                        <h3>Delete account</h3>
+                        <p>Feature will be available soon ... </p>
+                    </div>
+    
+                </div>
+                <!-- Change password setting end here -->
+
+            </div>
+
+        </div>
+    </div>
+
+{%endblock%}
+
+{%block bodyscript%}
+    <script src="{%static 'js/main.js'%}"></script>
+{%endblock%}

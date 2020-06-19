@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 from .models import UserProfile
 from . import validators
 from .decorators import is_authenticated
+from userprofile.decorators import is_admin
 
 #   function to deal with register functionality
 @is_authenticated
@@ -22,7 +23,7 @@ def registerUser(request) :
         username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
-        profile = request.FILES.get('profile','default.png')
+        profile = request.FILES.get('profile','images/default.png')
 
         #   validating username and email address
         if validators.isEmail(email) and validators.isUserName(username) : 
@@ -87,3 +88,43 @@ def logoutUser(request) :
         return redirect('/account/login/')
     else : 
         raise Http404()
+
+
+#   change function
+@login_required
+@is_admin
+def changepassword(request) : 
+    if request.method == 'POST' : 
+        username = request.user.username
+        password = request.POST.get('cpassword')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 != password2 : 
+            messages.error(request, "Password didn't match")
+            return redirect('/profile/user-setting/')
+        else : 
+            #   authenticating user with the old password
+            user = authenticate(username=username, password=password)
+            if user is not None : 
+                user.set_password(password1)
+                user.save()
+                login(request, user)
+                messages.success(request, "Password changed successfully")
+                return redirect("/profile/user-setting/")
+            else : 
+                messages.error(request, "Old password entered incorrectly")
+                return redirect("/profile/user-setting/")
+
+
+#   method to change the profile picture for the user
+@login_required
+@is_admin
+def change_profile_pic(request) : 
+    if request.method == 'POST' : 
+        profile_pic = request.FILES.get('profile')
+        user = request.user
+        user.userprofile.profile_pic = profile_pic
+        user.userprofile.save()
+        messages.success(request, "Profile pic has been uploaded")
+        return redirect("/profile/user-setting/")

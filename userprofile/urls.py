@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('dashboard/', views.get_profile, name='profile'),
     path('edit-profile/', views.edit_user_profile, name='editprofile'),
+    path('user-setting/', views.user_setting, name='user_setting'),
 ]

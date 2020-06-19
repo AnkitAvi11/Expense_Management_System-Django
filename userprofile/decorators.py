@@ -14,4 +14,3 @@ def is_admin(view_function) :
 
     return wrapper_function
 
-    
