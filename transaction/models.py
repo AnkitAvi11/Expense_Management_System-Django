@@ -25,6 +25,21 @@ class Transaction(models.Model) :
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     date = models.DateTimeField(default = timezone.now())
     
+    transaction_choice = {
+        ('DB' , 'DEBIT'),
+        ('CR' , 'CREDIT'),
+    }
+    transaction_type = models.CharField(max_length=2, choices=transaction_choice, default='DB')
 
     def __str__(self) : 
         return self.title
+
+    #   overriding the save method
+    def save(self, *args, **kwargs) : 
+        print(self.transaction_type)
+        if self.transaction_type == 'DB' : 
+            self.wallet_linked.total_amount -= self.amount
+        else :
+            self.wallet_linked.total_amount += self.amount
+        self.wallet_linked.save()
+        super().save(*args, **kwargs)

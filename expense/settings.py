@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'userprofile.apps.UserprofileConfig',
     'transaction.apps.TransactionConfig',
     'pages.apps.PagesConfig',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

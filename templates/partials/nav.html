@@ -16,8 +16,8 @@
           <a class="nav-link" href="{%url 'about'%}">About</a>
         </li>
         {%if user.is_authenticated and not user.is_staff%}
-        <li class="nav-item">
-          <a class="nav-link" href="#">Transactions</a>
+        <li class="nav-item {%if 'transaction' in request.path%}active{%endif%}">
+          <a class="nav-link" href="{%url 'transaction'%}" class="">Transactions</a>
         </li>
         {%endif%}
       </ul>

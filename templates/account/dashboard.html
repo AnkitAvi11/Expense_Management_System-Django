@@ -1,6 +1,6 @@
 {%extends 'base.html'%}
 {%block title%}{{user.username}}{%endblock%}
-
+{%load humanize%}
 {%block content%}
 
     <div class="container" style="margin-top: 20px;">
@@ -16,7 +16,15 @@
                     <p>You haven't made any transactions yet.</p>
                     <p><a href="#">Click here</a> to add transaction(s)</p>
                 {%else%}
-                    You have made atleast one transaction
+                    <div class="row">
+                        {%for wallet in user.wallet_set.all%}
+                            <div class="col-sm-4">
+                                <p>Wallet Name : {{wallet.name}}</p>
+                                <p>Amount Left : Rs. {{wallet.total_amount | intcomma}}</p>
+                                <p>Creaetd : {{wallet.date_created|naturaltime}}</p>
+                            </div>
+                        {%endfor%}
+                    </div>
                 {%endif%}
             </div>
 
