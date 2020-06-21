@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
     'userprofile.apps.UserprofileConfig',
-    'transaction.apps.TransactionConfig'
+    'transaction.apps.TransactionConfig',
+    'pages.apps.PagesConfig',
 ]
 
 MIDDLEWARE = [
