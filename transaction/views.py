@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib import messages
 
 from .models import Wallet, Transaction
+from django.utils import timezone
 
 @login_required(login_url='/account/login/')
 @is_admin
@@ -15,9 +16,9 @@ def addWallet(request) :
         name = request.POST.get('wname')
         description = request.POST.get('desc')
         amount = request.POST.get('amount')
-
+        date_created = timezone.now()
         #   creating a new wallet
-        wallet = Wallet(user=user, name=name, description=description, total_amount=amount)
+        wallet = Wallet(user=user, name=name, description=description, total_amount=amount, date_created=date_created)
         wallet.save()
         messages.success(request, 'Wallet created succesfully!')        
         return redirect('/new-wallet/')
@@ -34,10 +35,10 @@ def addtransaction(request) :
 
         try : 
             wallet = Wallet.objects.get(id=wallet_id)
-
+            date = timezone.now()
             user = request.user 
 
-            transaction = Transaction(user=user, wallet_linked=wallet, title=title, description=desc, amount=amount, transaction_type=t_type)
+            transaction = Transaction(user=user, wallet_linked=wallet, title=title, description=desc, amount=amount, transaction_type=t_type, date=date)
             transaction.save()
             messages.success(request, 'Transaction added successfully')
             return redirect('/transaction/')

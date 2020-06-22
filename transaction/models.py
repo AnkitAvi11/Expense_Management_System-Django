@@ -43,3 +43,11 @@ class Transaction(models.Model) :
             self.wallet_linked.total_amount += self.amount
         self.wallet_linked.save()
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs) : 
+        if self.transaction_type == 'DB' : 
+            self.wallet_linked.total_amount += self.amount
+        else :
+            self.wallet_linked.total_amount -= self.amount
+        self.wallet_linked.save()
+        super().delete(*args, **kwargs)

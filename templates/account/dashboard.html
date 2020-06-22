@@ -20,7 +20,9 @@
                         {%for wallet in user.wallet_set.all%}
                             <div class="col-sm-4">
                                 <p>Wallet Name : {{wallet.name}}</p>
-                                <p>Amount Left : Rs. {{wallet.total_amount |floatformat:2 |intcomma}}</p>                               
+                                <p>Amount Left : Rs. {{wallet.total_amount |floatformat:2 |intcomma}}</p>
+                                <p>Creaetd : {{wallet.date_created|naturaltime}} {{wallet.date_created | naturalday |upper}} </p>
+                                
                             </div>
                         {%endfor%}
                     </div>
