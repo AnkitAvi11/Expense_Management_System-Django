@@ -19,7 +19,14 @@ def aboutview(request) :
 @is_admin
 def transactions_page(request) : 
     user_wallets = Wallet.objects.filter(user__username__exact=request.user.username)
+    latest_transaction = Transaction.objects.all().order_by('-date')[:10]
     context = {
-        "wallets" : user_wallets
+        "wallets" : user_wallets,
+        "transaction" : latest_transaction
     }
     return render(request, 'account/transact.html', context)
+
+@login_required(login_url='/account/login')
+@is_admin
+def newwallet(request) : 
+    return render(request, 'account/createwallet.html', )

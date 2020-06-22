@@ -25,7 +25,7 @@
           <!-- Dropdown -->
         {%if user.is_authenticated%}
         <li class="nav-item ml-auto">
-            <a href="#" class="nav-link">New Wallet</a>
+            <a href="{%url 'newwallet'%}" class="nav-link {%if 'wallet' in request.path%}active{%endif%}">New Wallet</a>
         </li>
         <li class="nav-item outline dropdown ">
             <a class="nav-link dropdown-toggle {%if 'profile' in request.path%}active{%endif%}" href="#" id="navbardrop" data-toggle="dropdown">

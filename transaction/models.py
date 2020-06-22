@@ -8,7 +8,7 @@ class Wallet(models.Model) :
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length = 200)
     description = models.CharField(max_length=200, blank=True, null=True)
-    total_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    total_amount = models.FloatField()
     date_created = models.DateTimeField(default=timezone.now())
 
     def __str__(self) : 
@@ -22,7 +22,7 @@ class Transaction(models.Model) :
     wallet_linked = models.ForeignKey(Wallet, on_delete=models.CASCADE)
     title = models.CharField(max_length = 200)
     description = models.TextField(blank=True, null=True)
-    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    amount = models.FloatField()
     date = models.DateTimeField(default = timezone.now())
     
     transaction_choice = {

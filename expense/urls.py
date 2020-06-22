@@ -10,4 +10,5 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('profile/', include('userprofile.urls')),
     path('', include('pages.urls')),
+    path('', include('transaction.urls')),
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -14,14 +14,13 @@
                 <h3>User Dashboard</h3>
                 {%if user.transaction_set.count == 0%}
                     <p>You haven't made any transactions yet.</p>
-                    <p><a href="#">Click here</a> to add transaction(s)</p>
+                    <p><a href="{%url 'transaction'%}">Click here</a> to add transaction(s)</p>
                 {%else%}
                     <div class="row">
                         {%for wallet in user.wallet_set.all%}
                             <div class="col-sm-4">
                                 <p>Wallet Name : {{wallet.name}}</p>
-                                <p>Amount Left : Rs. {{wallet.total_amount | intcomma}}</p>
-                                <p>Creaetd : {{wallet.date_created|naturaltime}}</p>
+                                <p>Amount Left : Rs. {{wallet.total_amount |floatformat:2 |intcomma}}</p>                               
                             </div>
                         {%endfor%}
                     </div>
