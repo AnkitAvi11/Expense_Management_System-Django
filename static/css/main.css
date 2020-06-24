@@ -13,4 +13,6 @@ div.wallet-card {
     padding: 10px;
     border-radius:5px;
     border-left: 5px solid dodgerblue;
+    height: 200px;
+    overflow-y: auto;
 }

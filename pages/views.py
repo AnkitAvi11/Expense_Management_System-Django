@@ -15,12 +15,12 @@ def indexView(request) :
 def aboutview(request) : 
     return HttpResponse('about page')
 
-#   view function for the 
+#   view function for the transaction page
 @login_required(login_url='/account/login/')
 @is_admin
 def transactions_page(request) : 
     user_wallets = Wallet.objects.filter(user__username__exact=request.user.username)
-    latest_transaction = Transaction.objects.all().order_by('-date')[:10]
+    latest_transaction = Transaction.objects.filter(user=request.user).order_by('-date')[:10]
     context = {
         "wallets" : user_wallets,
         "transaction" : latest_transaction
@@ -36,7 +36,7 @@ def newwallet(request) :
 @is_admin
 def alltransction(request) : 
     user = request.user
-    transactions = Transaction.objects.all().order_by('-date')
+    transactions = Transaction.objects.filter(user=request.user).order_by('-date')
     paginator = Paginator(transactions, 10)
     page = request.GET.get('page')
     current_page = paginator.get_page(page)

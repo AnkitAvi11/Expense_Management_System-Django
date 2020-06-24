@@ -153,6 +153,6 @@ function getPieChartData()
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    getBarGraphData()
-    createPieChart(getById('piechart'))
+    getBarGraphData();  //  bar graph function
+    createPieChart(getById('piechart'));    //  pie chart function
 })

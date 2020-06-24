@@ -25,8 +25,8 @@
                                 <div class="wallet-card">
                                     <h5>{{wallet}}</h5>
                                     <p>{{wallet.description}}</p>
-                                    <p>Amount left : <b>Rs. {{wallet.total_amount | floatformat:2}}</b></p>
-                                    <p>{{wallet.date_created | naturaltime}}</p>
+                                    <p>Amount left : <b>Rs. {{wallet.total_amount | floatformat:2 |intcomma}}</b></p>
+                                    <p><b>{{wallet.date_created | naturaltime}}</b></p>
                                 </div>
                             </div>
                         {%endfor%}
@@ -35,7 +35,7 @@
 
                 <!-- #region statistics -->
                 <div style="margin-top: 50px;margin-bottom:20px">
-                    <h4>Weekly transaction</h4>
+                    <h4>This week transactions</h4>
                     <div class="row" style="margin-top: 20px;">
                         <div class="col-sm-3">
                             <div id="canvas-holder" style="width:100%">

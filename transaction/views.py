@@ -54,7 +54,7 @@ def bargraph(request) :
     from django.core import serializers
     start_date = timezone.now() - timedelta(days=6)
     end_date = timezone.now()
-    transactions = serializers.serialize('json', Transaction.objects.filter(date__range=(start_date, end_date)))
+    transactions = serializers.serialize('json', Transaction.objects.filter(user=request.user, date__range=(start_date, end_date)))
     data_send = {
         "start_date" : start_date,
         "end_date" : end_date,
