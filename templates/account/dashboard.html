@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
 {%block title%}{{user.username}}{%endblock%}
+{%load static%}
 {%load humanize%}
 {%block content%}
 
@@ -11,25 +12,46 @@
             </div>
 
             <div class="col-sm-9">
-                <h3>User Dashboard</h3>
+                
                 {%if user.transaction_set.count == 0%}
+                    <h3>User Dashboard</h3>
                     <p>You haven't made any transactions yet.</p>
                     <p><a href="{%url 'transaction'%}">Click here</a> to add transaction(s)</p>
                 {%else%}
-                    <div class="row">
-                        {%for wallet in user.wallet_set.all%}
-                            <div class="col-sm-4">
-                                <p>Wallet Name : {{wallet.name}}</p>
-                                <p>Amount Left : Rs. {{wallet.total_amount |floatformat:2 |intcomma}}</p>
-                                <p>Creaetd : {{wallet.date_created|naturaltime}} {{wallet.date_created | naturalday |upper}} </p>
-                                
-                            </div>
-                        {%endfor%}
+                    <h3>My Wallets</h3>
+                    {%for wallet in user.wallet_set.all%}
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{wallet}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{wallet.description}}</h6>
+                          <p class="card-text"><b>Amount left : </b>Rs. {{wallet.total_amount | floatformat:2 | intcomma}}</p>
+                          <p class="card-text">{{wallet.date_created | naturaltime}}</p>
+                          
+                          <a href="#" class="card-link">View</a>
+                        </div>
                     </div>
+                    {%endfor%}
                 {%endif%}
+
+                <!-- #region statistics -->
+                <div style="margin-top: 20px;">
+                    <h3>Weekly transaction</h3>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="canvas-holder" style="width:100%">
+                                <canvas id="barchart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </div>
 
+{%endblock%}
+{%block bodyscript%}
+<script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+<script src="{%static 'js/chart.js'%}"></script>
 {%endblock%}

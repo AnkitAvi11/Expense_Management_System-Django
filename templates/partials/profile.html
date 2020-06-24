@@ -11,7 +11,14 @@
 <p>{{user.email}}</p>
 <div>
     {%if not user.is_staff%}
-    <p><a href="{%url 'editprofile'%} " class="btn btn-primary" style="width: 100%;">Edit Profile</a></p>
+    <p>
+        {%if 'edit' in request.path%}
+        <a href="{%url 'profile'%} " class="btn btn-primary" style="width: 100%;">Dashbaord</a>
+        {%else%}
+        <a href="{%url 'editprofile'%} " class="btn btn-primary" style="width: 100%;">Edit Profile</a>
+        {%endif%}
+
+    </p>
     {%endif%}
 </div>
 <p><b>Bio</b></p>

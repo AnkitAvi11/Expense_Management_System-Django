@@ -7,6 +7,7 @@ from django.contrib import messages
 
 from .models import Wallet, Transaction
 from django.utils import timezone
+from datetime import timedelta, datetime as dt
 
 @login_required(login_url='/account/login/')
 @is_admin
@@ -46,3 +47,15 @@ def addtransaction(request) :
             messages.error(request, 'That wallet has been deleted')
             return redirect('/transaction/')
 
+
+@login_required(login_url='/account/login/')
+@is_admin
+def bargraph(request) : 
+    from django.core import serializers
+    
+    start_date = timezone.now() - timedelta(days=7)
+    end_date = timezone.now()
+    import json
+    transactions = json.dumps(Transaction.objects.filter(user=request.user))
+
+    return JsonResponse(transactions, safe=False)
