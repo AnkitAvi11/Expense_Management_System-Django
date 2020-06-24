@@ -52,10 +52,13 @@ def addtransaction(request) :
 @is_admin
 def bargraph(request) : 
     from django.core import serializers
-    
-    start_date = timezone.now() - timedelta(days=7)
+    start_date = timezone.now() - timedelta(days=6)
     end_date = timezone.now()
-    import json
-    transactions = json.dumps(Transaction.objects.filter(user=request.user))
+    transactions = serializers.serialize('json', Transaction.objects.filter(date__range=(start_date, end_date)))
+    data_send = {
+        "start_date" : start_date,
+        "end_date" : end_date,
+        "transactions" : transactions
+    }
+    return JsonResponse(data_send, safe=False)
 
-    return JsonResponse(transactions, safe=False)

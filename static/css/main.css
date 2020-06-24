@@ -7,3 +7,10 @@ div.my-form {
     border: 1px solid lightgrey;
     border-radius: 6px;
 }
+
+div.wallet-card {
+    border: 1px solid dodgerblue;
+    padding: 10px;
+    border-radius:5px;
+    border-left: 5px solid dodgerblue;
+}

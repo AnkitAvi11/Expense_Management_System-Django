@@ -11,8 +11,10 @@ from .decorators import is_admin
 @is_admin
 def get_profile(request) :
     user = User.objects.get(id=request.user.id)
+    wallets = user.wallet_set.all().order_by('-date_created')[:3]
     context = {
-        "profile" : user
+        "profile" : user,
+        "wallets" : wallets
     }
     return render(request, 'account/dashboard.html', context)
 
