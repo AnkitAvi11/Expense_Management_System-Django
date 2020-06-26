@@ -4,6 +4,8 @@ const getById = (id) => {
     return document.getElementById(id)
 }
 
+let totalspend_week = 0, totalincome_week = 0;
+
 //  function to calculate day
 function createDay(day_number) {
     switch(day_number) {
@@ -69,7 +71,9 @@ function getBarGraphData() {
     let xhr = createXHR()
 
     xhr.onload = () => {
+        
         if (xhr.status == 200) {
+
             let data = JSON.parse(xhr.responseText)
             let start_date = new Date(data.start_date), end_date = new Date(data.end_date);
             let start_day = parseInt(start_date.getDay()), end_day = parseInt(end_date.getDay());
@@ -89,12 +93,16 @@ function getBarGraphData() {
                 let fields = transaction.fields
                 
                 let dayName = createDay(new Date(fields.date).getDay())
+                
                 if (fields.transaction_type == 'DB') {
+                    totalspend_week+=fields.amount
                     if (dataset.hasOwnProperty(dayName)) {
-                        dataset[dayName]+=fields.amount
+                        dataset[dayName]+=fields.amount;
                     }else{
-                        dataset[dayName]=fields.amount
+                        dataset[dayName]=fields.amount;
                     }
+                }else{
+                    totalincome_week+=fields.amount;
                 }
             })
 
@@ -112,20 +120,23 @@ function getBarGraphData() {
             }
 
             createBarChart(chart, labels, "Weekly transactions", oset);
+            createPieChart(getById('piechart'));
             
         }
     }
 
     xhr.onloadstart = () => {
-        chart.style.display = 'none'
+        chart.style.display = 'none';
     }
+
     xhr.onloadend = () => {
-        chart.style.display = 'block'
-        getById('spinner').style.display = 'none'
+        chart.style.display = 'block';
+        getById('spinner').style.display = 'none';
     }
 
     xhr.open('GET', 'http://127.0.0.1:8000/api/transaction/bargraph/', true);
     xhr.send();
+
 }
 
 function createPieChart(ctx, labels, dataset_label, data) {
@@ -134,7 +145,7 @@ function createPieChart(ctx, labels, dataset_label, data) {
 			data: {
 				datasets: [{
 					data: [
-						56,54
+						totalspend_week, totalincome_week
 					],
 					backgroundColor: ['red','lightgreen'],
 					label: 'Dataset 1'
@@ -154,5 +165,4 @@ function getPieChartData()
 
 window.addEventListener('DOMContentLoaded', () => {
     getBarGraphData();  //  bar graph function
-    createPieChart(getById('piechart'));    //  pie chart function
-})
+});

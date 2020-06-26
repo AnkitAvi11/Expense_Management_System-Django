@@ -62,3 +62,24 @@ def bargraph(request) :
     }
     return JsonResponse(data_send, safe=False)
 
+@login_required(login_url='/account/login/')
+@is_admin
+def walletSetting(request) :
+    user = request.user
+    wallets = user.wallet_set.all().order_by('-date_created')
+    context = {
+        "wallets" : wallets
+    }
+    return render(request, 'pages/walletsetting.html', context)
+
+
+@login_required(login_url='/account/login/')
+@is_admin
+def getWallet(request) :
+    if request.method == 'POST' : 
+        from django.core import serializers
+        user = request.user
+        wallet_id = request.POST.get('wallet_id')
+        wallet = serializers.serialize('json', Wallet.objects.filter(user=user, id=wallet_id))
+        return JsonResponse(wallet, safe=False)
+

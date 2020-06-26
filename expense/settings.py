@@ -133,13 +133,3 @@ MESSAGE_TAGS = {
     messages.SUCCESS : 'success'
 }
 
-#   email configuration (sendgrid)
-
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-SENDGRID_API_KEY = "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"
-SMTP_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False

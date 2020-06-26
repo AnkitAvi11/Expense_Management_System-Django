@@ -1,28 +1,41 @@
-// "use strict"
+"use strict"
 
-// const getbyid = (id) => {
-//     return document.getElementById(id).value
-// };
+const getTarget = (e) => {
+    if (!e) {
+        e = window.event;
+    }
+    return e.srcElement || e.target;
+}
 
-// const fname = getbyid('fname'),lname = getbyid('lname'),username = getbyid('username'),email = getbyid('email');
+window.addEventListener('DOMContentLoaded', () => {
 
-// const button = document.getElementById('change')
-// console.log(button)
+    let wallet_container = document.getElementById('all-wallets')
+    
+    wallet_container.addEventListener('click', (e) => {
+        let tar = getTarget(e);
+        let csrf_token = document.querySelector("#exampleModal > div > div > div.modal-body > form > input[type=hidden]").value
+        
+        if (tar.id == 'wallet-setting') {
+            let wallet_id = parseInt(tar.parentNode.id);
+            let form = new FormData()
+            form.append('wallet_id', wallet_id)
+            fetch('http://127.0.0.1:8000/api/wallet/', {
+                method : 'POST', 
+                body : form,
+                headers: {
+                    "X-CSRFToken": csrf_token
+                },
+            }).then(res => res.json())
+            .then(data => {
+                data = JSON.parse(data)[0].fields
+                console.log(data);
+                document.getElementById('exampleModalLabel').textContent=data.name
+                document.getElementById('wname').value = data.name
+                document.getElementById('description').value = data.description
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    });
 
-// button.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     const form = document.getElementById('my-change-form')
-//     let nfname = getbyid('fname'),nlname = getbyid('lname'),nusername = getbyid('username'),nemail = getbyid('email');
-
-//     if (nfname!=fname || nlname!=lname || nusername!=username || nemail!=email) {
-//         form.submit()
-//     }else{
-//         alert("You have made no change")
-//     }
-
-// }, false);
-// let alert = document.querySelector('div.alert')
-
-// setTimeout(() => {
-//     alert.style.display = "None";
-// }, 2000)
+}, false);

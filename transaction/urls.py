@@ -5,5 +5,7 @@ from . import views
 urlpatterns = [
     path('create-wallet/', views.addWallet, name='postwallet'),
     path('addtransaction/', views.addtransaction, name='addtransaction'),
+    path('wallet-setting/', views.walletSetting, name='wallet-setting'),
+    path('api/wallet/', views.getWallet, name='getwallet'),
     path('api/transaction/bargraph/',views.bargraph, name='bargraph'),
 ]
