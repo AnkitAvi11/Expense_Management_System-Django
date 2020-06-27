@@ -170,3 +170,4 @@ function getPieChartData()
 window.addEventListener('DOMContentLoaded', () => {
     getBarGraphData();  //  bar graph function
 });
+

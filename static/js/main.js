@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     wallet_container.addEventListener('click', (e) => {
         let tar = getTarget(e);
-        let csrf_token = document.querySelector("#exampleModal > div > div > div.modal-body > form > input[type=hidden]").value
+        let csrf_token = document.querySelector("#exampleModal > div > div > div.modal-body > form > input[type=hidden]").value;
         
         if (tar.id == 'wallet-setting') {
             let wallet_id = parseInt(tar.parentNode.id);
@@ -27,14 +27,17 @@ window.addEventListener('DOMContentLoaded', () => {
                 },
             }).then(res => res.json())
             .then(data => {
+                let wallet_id = JSON.parse(data)[0].pk;
                 data = JSON.parse(data)[0].fields
                 console.log(data);
                 document.getElementById('exampleModalLabel').textContent=data.name
                 document.getElementById('wname').value = data.name
                 document.getElementById('description').value = data.description
+                document.getElementById('wallet_id').value = wallet_id
+                document.getElementById('w_id').value = wallet_id
             }).catch(err => {
-                console.log(err)
-            })
+                console.log(err);
+            });
         }
     });
 

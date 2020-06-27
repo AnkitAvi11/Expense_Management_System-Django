@@ -83,3 +83,28 @@ def getWallet(request) :
         wallet = serializers.serialize('json', Wallet.objects.filter(user=user, id=wallet_id))
         return JsonResponse(wallet, safe=False)
 
+
+@login_required(login_url='/account/login/')
+@is_admin
+def changeWalletSetting(request) : 
+    if request.method == 'POST' :
+        try : 
+            wallet_id = request.POST.get('wallet_id')
+            user = request.user
+            Wallet.objects.filter(user=user, id=wallet_id).update(name=request.POST.get('wname'), description=request.POST.get('description'))
+            messages.success(request, 'Changes were saved')
+            return redirect('/wallet-setting/')
+        except: 
+            messages.error(request, 'Some errors occurred')
+            return redirect('/wallet-setting/')
+    
+@login_required(login_url='/account/login/')
+@is_admin
+def deleteWallet(request) : 
+    if request.method == 'POST' : 
+        user = request.user
+        wallet_id = request.POST.get('wallet_id')
+        wallet = Wallet.objects.get(user=user, id=wallet_id)
+        wallet.delete()
+        messages.success(request, 'Wallet has been deleted successfully')
+        return redirect('/wallet-setting/')
