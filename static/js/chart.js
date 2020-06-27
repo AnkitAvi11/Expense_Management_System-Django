@@ -8,14 +8,15 @@ let totalspend_week = 0, totalincome_week = 0;
 
 //  function to calculate day
 function createDay(day_number) {
-    switch(day_number) {
+    switch(day_number) 
+    {
         case 1 : return "Monday";break;
         case 2 : return "Tuesday";break;
         case 3 : return "Wednesday";break;
         case 4 : return "Thursday";break;
         case 5 : return "Friday";break;
         case 6 : return "Saturday";break;
-        case 7 : return "Sunday";break;
+        case 0   : return "Sunday";break;
         default : return "Invalid day"
     }
 }
@@ -81,9 +82,12 @@ function getBarGraphData() {
             let labels = new Array();
 
             for (let i=1; i<=7; i++) {
-                if(start_day == 8) start_day=1;
+                console.log(start_day)
+                if(start_day == 7) start_day=0;
                 labels.push(createDay(start_day++));
             }
+
+            console.table(labels);
 
             let dataset = new Object()
             
