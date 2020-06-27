@@ -133,3 +133,5 @@ MESSAGE_TAGS = {
     messages.SUCCESS : 'success'
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

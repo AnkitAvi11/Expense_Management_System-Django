@@ -6,13 +6,16 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 
 #   account app files
 from .models import UserProfile
 from . import validators
 from .decorators import is_authenticated
 from userprofile.decorators import is_admin
+
+#   password reset views and requirements
+from django.core import mail
+from django.contrib.auth import views
 
 #   function to deal with register functionality
 @is_authenticated
