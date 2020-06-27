@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from userprofile.decorators import is_admin
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 from transaction.models import Wallet, Transaction
 
@@ -13,7 +14,14 @@ def indexView(request) :
         return render(request, 'pages/home.html')
 
 def aboutview(request) : 
-    return HttpResponse('about page')
+    try : 
+        user = User.objects.get(id=7)
+        context = {
+            "profile" : user
+        }
+        return render(request, 'pages/about.html', context)
+    except : 
+        pass
 
 #   view function for the transaction page
 @login_required(login_url='/account/login/')

@@ -114,7 +114,7 @@ function getBarGraphData() {
 
             for (let i=1;i<=7;i++) 
             {
-                if (start_day==8) start_day=1;
+                if (start_day==7) start_day=0;
                 let day = createDay(start_day++)
                 if (dataset.hasOwnProperty(day)) {
                     oset.push(dataset[day])
